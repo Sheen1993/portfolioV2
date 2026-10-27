@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: theme('colors.ink');
+    color: theme('colors.paper');
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-ink font-sans text-paper antialiased;
+    min-height: 100dvh;
+    font-feature-settings: 'ss02', 'tnum' 0;
+  }
+  ::selection {
+    background: theme('colors.signal');
+    color: theme('colors.ink');
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.signal');
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Content frame: capped on ultra-wide, fluid gutters everywhere else. */
+  .frame {
+    width: 100%;
+    max-width: theme('maxWidth.frame');
+    margin-inline: auto;
+    padding-left: max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-left));
+    padding-right: max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-right));
+  }
+  .safe-y {
+    padding-top: max(clamp(1.25rem, 3.5dvh, 2.75rem), env(safe-area-inset-top));
+    padding-bottom: max(clamp(1.25rem, 3.5dvh, 2.75rem), env(safe-area-inset-bottom));
+  }
+
+  /* A layer of the pinned stage. Only the active one takes pointer input. */
+  .stage-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .stage-layer:first-child {
+    visibility: visible;
+  }
+  .stage-layer[data-active='true'] {
+    pointer-events: auto;
+  }
+
+  /* Masked line for slide-up reveals. Padding keeps descenders un-clipped. */
+  .mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .kicker {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.18em] text-mute sm:text-xs;
+  }
+
+  /* Inline emphasis inside prose: accent colour + a low underline, no pill. */
+  .mark {
+    color: theme('colors.signal');
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 92%;
+    background-repeat: no-repeat;
+  }
+
+  /* Tap/press feedback for touch: every interactive element gets one. */
+  .press {
+    transition: transform 120ms ease, color 160ms ease, background-color 160ms ease;
+  }
+  .press:active {
+    transform: translateY(1px) scale(0.985);
+  }
+}
+
+@layer utilities {
+  /* Fluid type. min(vw, dvh) keeps short-wide viewports (unfolded foldables,
+     1920x900 browser windows) from overflowing vertically. */
+  .t-name {
+    font-size: clamp(3.4rem, min(18vw, 25dvh), 19rem);
+    line-height: 0.84;
+  }
+  .t-huge {
+    font-size: clamp(3rem, min(12vw, 20dvh), 15rem);
+    line-height: 0.86;
+  }
+  .t-display {
+    font-size: clamp(2.2rem, min(6.2vw, 11dvh), 7.5rem);
+    line-height: 0.9;
+  }
+  .t-title {
+    font-size: clamp(1.6rem, min(3.4vw, 6dvh), 3.6rem);
+    line-height: 0.95;
+  }
+  .t-prose {
+    font-size: clamp(1.2rem, min(2.55vw, 4.6dvh), 3rem);
+    line-height: 1.18;
+  }
+  .t-body {
+    font-size: clamp(0.92rem, min(1.02vw, 2.1dvh), 1.2rem);
+    line-height: 1.5;
+  }
+  .t-code {
+    font-size: clamp(0.74rem, min(0.92vw, 1.9dvh), 1.08rem);
+    line-height: 1.7;
+  }
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(236 230 218 / 0.28);
+  }
+}
+
+/* Fine grain over everything: kills the flat-digital look on big dark fields. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.075;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Custom cursor hides the native one only where it's actually mounted. */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button {
+  cursor: none;
+}
+
+/* Collapsible body for the mobile highlight cards (grid 0fr -> 1fr trick). */
+.collapse-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms ease;
+}
+.collapse-grid[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+.collapse-grid > * {
+  overflow: hidden;
+}
+
+@keyframes cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+.animate-cue {
+  animation: cue 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cue {
+    animation: none;
+  }
+  .collapse-grid,
+  .press {
+    transition: none;
+  }
+}
+
+/* Keep pinned-stage content clear of the fixed chapter rail on the right. */
+.pinned-stage .frame {
+  padding-right: calc(clamp(1.25rem, 4vw, 4.5rem) + 6rem);
+}
+
+/* Sideways carousels on phones: swipeable, no scrollbar chrome. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Nice-to-have lines that give way on short phones (iPhone SE class). */
+@media (max-width: 639px) and (max-height: 760px) {
+  .short-hide {
+    display: none;
+  }
+}
+
+/* Config-file line numbers. */
+.code-lines {
+  counter-reset: line;
+}
+.code-line {
+  counter-increment: line;
+}
+.code-line > .ln::before {
+  content: counter(line);
+}
+
+/* Room reserved for the chapter rail, shared by the frame and the highlights strip. */
+.pinned-stage {
+  --rail-space: 7.5rem;
+}
+.strip-window {
+  margin-right: var(--rail-space);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 4rem), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 4rem), transparent);
+}
