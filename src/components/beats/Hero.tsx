@@ -142,7 +142,7 @@ export function HeroFlow({ snap }: FlowProps) {
   return (
     <FlowSection id="hero" label="Introduction" snap={snap} className={snap ? '' : 'min-h-svh'}>
       <TopBar />
-      <div className="mt-auto grid grid-cols-12 items-end gap-x-6 pt-10">
+      <div className="mt-auto sm:mt-20 grid grid-cols-12 items-end gap-x-6 pt-10">
         <h1
           aria-label={profile.fullName}
           className="col-span-12 font-display text-[clamp(3.6rem,min(22vw,16svh),12rem)] font-extrabold uppercase leading-[0.84] md:text-[clamp(3.4rem,min(18vw,20svh),19rem)] lg:col-span-9"
