@@ -29,10 +29,10 @@ export const about = {
   years: '9',
   yearsLabel: 'years, professionally',
   lead: [
-    ['I’ve spent ', { mark: '9 years' }, ' building the parts of web apps'],
-    [' people only notice when they break —'],
-    [' payroll dashboards, queue screens, reporting modules,'],
-    [' and one Japanese storefront that kept throwing 500s.'],
+    ['Full-Stack Developer with ', { mark: '9 years' }, ' of experience'],
+    [' building and stabilizing high-impact web applications,'],
+    [' including HRIS, queue management systems, reporting modules,'],
+    [' and high-traffic e-commerce platforms.'],
   ] as Run[][],
   details: [
     {
