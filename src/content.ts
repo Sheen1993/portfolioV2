@@ -12,7 +12,7 @@ export const profile = {
   timeZone: 'Asia/Manila',
   email: 'sheenaking2017.sa@gmail.com',
   phone: { display: '0977 787 0848', href: 'tel:+639777870848' },
-  resume: 'https://drive.google.com/uc?export=download&id=1qDe4ry3XEkRGBUS753InM4LAhNdEW4PA',
+  resume: 'https://drive.google.com/drive/u/0/folders/15L33Q1nFstLz9QhmtlMoui1fHLc64063',
   now: 'Software Engineer at Cody Web Development',
   oneLiner: 'Years building, modernizing, and maintaining web applications.',
 } as const
