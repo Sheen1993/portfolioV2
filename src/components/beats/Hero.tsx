@@ -1,28 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { ArrowDown } from 'lucide-react'
+import { ArrowDown, Download } from 'lucide-react'
 import { profile } from '../../content'
 import { T, type FlowProps, type RegisterBeat } from '../../lib/stage'
 import { FlowSection } from '../FlowSection'
 import { Reveal } from '../Reveal'
 
 const lines = [profile.firstName, profile.middleName, profile.lastName]
-
-function CebuTime() {
-  const fmt = () =>
-    new Intl.DateTimeFormat('en-GB', {
-      timeZone: profile.timeZone,
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(new Date())
-  const [time, setTime] = useState(fmt)
-  useEffect(() => {
-    const id = window.setInterval(() => setTime(fmt()), 20_000)
-    return () => window.clearInterval(id)
-  }, [])
-  return <time>{time}</time>
-}
 
 function TopBar() {
   return (
@@ -34,11 +19,15 @@ function TopBar() {
           <span className="text-paper/40">/</span> {new Date().getFullYear()}
         </span>
       </p>
-      <p className="kicker text-right">
-        {profile.city.split(' ')[0]}
-        <span className="hidden sm:inline"> {profile.city.split(' ').slice(1).join(' ')}</span>{' '}
-        <span className="text-paper">·</span> <CebuTime /> PHT
-      </p>
+      <a
+        href={profile.resume}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="kicker press group -my-3 inline-flex min-h-[44px] items-center gap-2 hover:text-signal active:text-signal"
+      >
+        <Download aria-hidden className="h-3.5 w-3.5 text-signal transition-transform group-hover:translate-y-0.5" />
+        Download resume
+      </a>
     </header>
   )
 }

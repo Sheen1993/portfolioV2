@@ -8,7 +8,8 @@ export const FlowRootContext = createContext<RefObject<HTMLElement> | undefined>
 export const useFlowRoot = () => useContext(FlowRootContext)
 
 /** Mode-specific navigation, so beats don't need to know how scrolling works. */
-export const NavContext = createContext<{ toTop: () => void }>({
+export const NavContext = createContext<{ toTop: () => void; toLabel: (label: string) => void }>({
   toTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+  toLabel: () => {},
 })
 export const useNav = () => useContext(NavContext)

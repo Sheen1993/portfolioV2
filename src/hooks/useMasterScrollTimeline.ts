@@ -156,7 +156,14 @@ export function useMasterScrollTimeline({ beats, compact }: Options) {
     [beats],
   )
 
-  return { trackRef, stageRef, progressRef, active, total, jumpTo }
+  /** Scroll to any label a beat added to the master timeline. */
+  const jumpToLabel = useCallback((label: string, behavior: ScrollBehavior = 'smooth') => {
+    const st = triggerRef.current
+    if (!st) return
+    window.scrollTo({ top: st.labelToScroll(label), behavior })
+  }, [])
+
+  return { trackRef, stageRef, progressRef, active, total, jumpTo, jumpToLabel }
 }
 
 function setLayerActive(layers: HTMLElement[], index: number) {

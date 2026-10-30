@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import { ArrowUp, ArrowUpRight, Check, Copy, Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowUp, ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { contact, profile } from '../../content'
 import { T, type FlowProps, type RegisterBeat } from '../../lib/stage'
 import { useNav } from '../context'
@@ -7,42 +6,15 @@ import { FlowSection } from '../FlowSection'
 import { Magnetic } from '../Magnetic'
 import { Reveal } from '../Reveal'
 
-function CopyEmail() {
-  const [copied, setCopied] = useState(false)
-  const timer = useRef<number>()
-  useEffect(() => () => window.clearTimeout(timer.current), [])
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.email)
-      setCopied(true)
-      window.clearTimeout(timer.current)
-      timer.current = window.setTimeout(() => setCopied(false), 1800)
-    } catch {
-      window.location.href = `mailto:${profile.email}`
-    }
-  }
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      aria-label="Copy email address"
-      className="press inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 border border-line px-3 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-mute hover:border-paper hover:text-paper active:border-signal active:text-signal"
-    >
-      {copied ? <Check aria-hidden className="h-4 w-4 text-signal" /> : <Copy aria-hidden className="h-4 w-4" />}
-      <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>
-    </button>
-  )
-}
-
 const linkClass =
   'press group inline-flex min-h-[44px] items-center gap-3 hover:text-signal active:text-signal'
 
 function Details() {
   return (
     <ul className="space-y-1">
-      <li className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <li>
         <Magnetic strength={0.2}>
-          <a href={`mailto:${profile.email}`} className={`${linkClass} text-[clamp(1.05rem,1.45vw,1.4rem)]`}>
+          <a href={`mailto:${profile.email}`} className={`${linkClass} max-w-full text-[clamp(1.05rem,1.45vw,1.4rem)]`}>
             <Mail aria-hidden className="h-5 w-5 shrink-0 text-signal" />
             <span className="break-all">{profile.email}</span>
             <ArrowUpRight
@@ -51,7 +23,6 @@ function Details() {
             />
           </a>
         </Magnetic>
-        <CopyEmail />
       </li>
       <li>
         <Magnetic strength={0.2}>
@@ -79,7 +50,6 @@ function Footer({ stage }: { stage?: boolean }) {
       <span>
         © {new Date().getFullYear()} {profile.fullName}
       </span>
-      <span className="hidden md:inline">Set in Big Shoulders Display &amp; IBM Plex</span>
       <Magnetic strength={0.3}>
         <button type="button" onClick={toTop} className={`${linkClass} gap-2 uppercase`}>
           Back to the top <ArrowUp aria-hidden className="h-4 w-4" />
@@ -99,15 +69,19 @@ export function ContactStage() {
       </p>
       <div className="my-auto grid grid-cols-12 items-end gap-x-6 gap-y-8">
         <h2 className="col-span-12 font-display text-[clamp(3rem,min(8.6vw,16dvh),11rem)] font-extrabold uppercase leading-[0.86] lg:col-span-8">
-          <span className="mask pl-[7vw]">
+          <span className="mask pl-[9.6vw]">
             <span data-ct-line className="block">
               {contact.heading[0]}
             </span>
           </span>
           <span className="mask">
             <span data-ct-line className="block">
-              {contact.heading[1].replace(/one\.$/, '')}
-              <span className="text-signal">one.</span>
+              {contact.heading[1]}
+            </span>
+          </span>
+          <span className="mask pl-[9vw]">
+            <span data-ct-line className="block">
+              <span className="text-signal">{contact.heading[2]}</span>
             </span>
           </span>
         </h2>

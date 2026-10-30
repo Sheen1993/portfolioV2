@@ -12,8 +12,9 @@ export const profile = {
   timeZone: 'Asia/Manila',
   email: 'sheenaking2017.sa@gmail.com',
   phone: { display: '0977 787 0848', href: 'tel:+639777870848' },
+  resume: 'https://drive.google.com/uc?export=download&id=1qDe4ry3XEkRGBUS753InM4LAhNdEW4PA',
   now: 'Software Engineer at Cody Web Development',
-  oneLiner: 'Nine years shipping web apps — and keeping the old ones alive.',
+  oneLiner: 'Years building, modernizing, and maintaining web applications.',
 } as const
 
 /** A run of text; `mark` runs get the accent treatment inline. */
@@ -34,10 +35,6 @@ export const about = {
     [' and one Japanese storefront that kept throwing 500s.'],
   ] as Run[][],
   details: [
-    {
-      label: 'Day to day',
-      runs: [{ mark: 'React, Next.js, Laravel, .NET Core, Python' }, ' — plus whatever the codebase already runs on.'] as Run[],
-    },
     {
       label: 'Lately',
       runs: [
@@ -94,6 +91,7 @@ export const skillGroups: SkillGroup[] = [
       'WinSCP',
       'Figma',
       'Bitbucket',
+      'Playwright',
     ],
     comment: 'PuTTY + WinSCP: for the servers that predate Docker',
   },
@@ -128,12 +126,17 @@ export const roles: Role[] = [
     company: 'Cody Web Development',
     period: 'Aug 2021 – Present',
     years: [2021, null],
-    lede: 'Six very different products. The same job each time: make it faster, then keep it up.',
+    lede: '',
     work: [
       {
-        name: 'HRIS',
+        name: 'Quality Assurance & Automated Testing',
         detail:
-          'React frontends for employee tracking and payroll dashboards. Cut the rendering lag HR staff sat through all day.',
+          'Performed end-to-end manual and Playwright automated testing for the International Music School platform, performing root-cause analysis and tracking execution metrics to ensure seamless deployment.',
+      },
+      {
+        name: 'HRIS',
+        detail: 
+          'Developed responsive React frontends for core HRIS modules (timesheets, shift schedules, overtime, holiday management, approval workflows, and dashboards), eliminating UI lag and streamlining daily administrative operations.'
       },
       {
         name: 'Queue management',
@@ -168,7 +171,7 @@ export const roles: Role[] = [
     company: 'Evotech Software Solutions',
     period: 'Oct 2016 – Feb 2019 · Mar 2021 – Oct 2025',
     years: [2016, 2025],
-    lede: 'Where it started — and a team I kept coming back to.',
+    lede: '',
     tenures: [
       { from: 'Oct 2016', to: 'Feb 2019', kind: 'Full-time', start: 2016.75, end: 2019.1 },
       { from: 'Mar 2021', to: 'Oct 2025', kind: 'Part-time', start: 2021.2, end: 2025.8 },
@@ -182,7 +185,7 @@ export const roles: Role[] = [
       {
         name: 'Scraping pipelines',
         detail:
-          'Re-engineered Python Playwright extraction against Amazon endpoints: structured error logs, dynamic retries, more runs that finish.',
+          'Re-engineered Python extraction against Amazon endpoints: structured error logs, dynamic retries, more runs that finish.',
       },
       {
         name: 'Laravel 6 + Vue 3',
@@ -205,7 +208,7 @@ export const roles: Role[] = [
     company: 'N-PAX Cebu Corporation',
     period: 'Feb 2019 – Aug 2021',
     years: [2019, 2021],
-    lede: 'Factory software. Less glamorous, much less forgiving.',
+    lede: '',
     work: [
       {
         name: 'Auto PCR System',
@@ -267,10 +270,10 @@ export const education = {
   degree: 'Bachelor of Science in Information Technology',
   school: 'University of Cebu – Banilad Campus',
   place: 'Cebu City, Philippines',
-  aside: 'The formal part. Everything after it was learned in production.',
+  aside: '',
 } as const
 
 export const contact = {
-  heading: ['Send me', 'the slow one.'],
-  body: 'Legacy PHP, a dashboard that crawls, a report nobody trusts — or something new. Email is fastest.',
+  heading: ["let's build", "something", "reliable"],
+  body: 'System upgrades, performance fixes, or new web builds. Email is fastest.',
 } as const

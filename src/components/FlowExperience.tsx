@@ -38,6 +38,12 @@ export function FlowExperience({ snap }: { snap: boolean }) {
         const target = snap ? containerRef.current : window
         target?.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' })
       },
+      // Stage labels map to Flow section ids: `work-<role>` -> `#timeline-<role>`.
+      toLabel: (label: string) => {
+        const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        const el = document.getElementById(label.replace(/^work-/, 'timeline-')) ?? document.getElementById('timeline')
+        el?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' })
+      },
     }),
     [snap],
   )
